@@ -1,32 +1,47 @@
 import { Injectable } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { GoogleAuthProvider} from '@angular/fire/auth'
+import { AngularFireAuth } from '@angular/fire/compat/auth'
 import { Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
+import firebase from "firebase/compat/app";
+import { GoogleAuthProvider, GithubAuthProvider } from '@angular/fire/auth';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+  appUser$ = this.fireauth.authState;
 
-  constructor(private fireauth : AngularFireAuth, private router : Router,private toastr: ToastrService) { }
 
-  // login method
-  login(email : string, password : string) {
-    this.fireauth.signInWithEmailAndPassword(email,password).then( res => {
-        localStorage.setItem('token','true');
-        this.router.navigate(['home']);
+  constructor(private fireauth  : AngularFireAuth, private router : Router,
+    private afs : AngularFirestore) { }
 
-    }, err => {
-        this.toastr.error(err.message);
-        this.router.navigate(['/login']);
+
+  //login method
+  login(email :  string, passsword : string){
+    this.fireauth.signInWithEmailAndPassword(email,passsword).then(() =>{
+      localStorage.setItem('token','true');
+
+
+      this.fireauth
+      .signInWithPopup(new firebase.auth.GoogleAuthProvider())
+      .then((credential) => this.updateUserData(credential.user));
+      
+      this.router.navigate(['/home'])
+    }, err =>{
+      alert('something went wrong');
+      this.router.navigate(['/login']);
     })
   }
 
-  // register method
-  register(email : string, password : string) {
-    this.fireauth.createUserWithEmailAndPassword(email, password).then( res => {
-      this.toastr.success('Registration Successful');
+
+ 
+
+
+  // signup method
+  signup(email: string, passsword : string) {
+    this.fireauth.createUserWithEmailAndPassword(email, passsword).then(() => {
+      alert('Registration Successful');
       this.router.navigate(['/login']);
     }, err => {
       alert(err.message);
@@ -34,26 +49,43 @@ export class AuthService {
     })
   }
 
+
   // sign out
   logout() {
-    this.fireauth.signOut().then( () => {
+    console.log("Logging out...");
+    this.fireauth.signOut().then(() => {
+      console.log("Successfully signed out.");
       localStorage.removeItem('token');
-      this.router.navigate(['/login']);
-    }, err => {
-      this.toastr.error(err.message);
-    })
-  }
-
-  //sign in with google
-  googleSignIn() {
-    return this.fireauth.signInWithPopup(new GoogleAuthProvider).then(res => {
-
-      this.router.navigate(['/home']);
-      localStorage.setItem('token',JSON.stringify(res.user?.uid));
-
-    }, err => {
+      this.router.navigate(["/login"]);
+    }).catch(err => {
+      console.error("Error while signing out:", err);
       alert(err.message);
-    })
+    });
   }
+  
+
+
+
+googlesignIn(){
+  return this.fireauth.signInWithPopup(new GoogleAuthProvider).then( () => {
+ this.router.navigate(['/home']);
+ localStorage.setItem('token','true');
+  }, err => {
+    alert(err.message)
+  })
+}
+
+
+private updateUserData(user : any) {
+  const userRef = this.afs.doc(`appusers/${user.id}`);
+  const data = {
+    name: user.displayName,
+    email: user.email,
+    
+  };
+  return userRef.set(data, { merge: true });
+}
+
+
 
 }

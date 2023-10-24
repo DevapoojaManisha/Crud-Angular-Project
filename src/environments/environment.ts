@@ -1,11 +1,11 @@
 export const environment = {
-  firebase: {
-    projectId: 'crudpro-55e55',
-    appId: '1:921847848063:web:c322cfe911c4ca8348734a',
-    storageBucket: 'crudpro-55e55.appspot.com',
-    apiKey: 'AIzaSyDmIVmErpfkQH3kApCpYCvVkfZMJGFLB04',
-    authDomain: 'crudpro-55e55.firebaseapp.com',
-    messagingSenderId: '921847848063',
-    measurementId: 'G-6TE5C0T4DJ',
-  },
+  production: false,
+  firebase :{
+    apiKey: 'AIzaSyBodKtGgXIUBggEXIB-_-Bb_m0LGHBdRtE',
+    authDomain: 'angularpro-13630.firebaseapp.com',
+    projectId: 'angularpro-13630',
+    storageBucket: 'angularpro-13630.appspot.com',
+    messagingSenderId: '650748743923',
+    appId: '1:650748743923:web:640ad9ad1355ef5842e786'
+  }
 };
