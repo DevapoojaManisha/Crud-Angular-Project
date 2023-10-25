@@ -6,11 +6,13 @@ import { GoogleAuthProvider, GithubAuthProvider } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 
+
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   appUser$ = this.fireauth.authState;
+  
 
 
   constructor(private fireauth  : AngularFireAuth, private router : Router,

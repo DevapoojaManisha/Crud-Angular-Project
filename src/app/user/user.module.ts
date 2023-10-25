@@ -6,8 +6,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
 import { SignupComponent } from './signup/signup.component';
 import { LoginComponent } from './login/login.component';
-import { HomeComponent } from './home/home.component';
+import { HomeComponent } from '../model/home/home.component';
 import { UserformComponent } from '../model/userform/userform.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 @NgModule({
   declarations: [
     SignupComponent,
@@ -24,7 +25,8 @@ import { UserformComponent } from '../model/userform/userform.component';
       closeButton:true,
       timeOut:5000,
       progressBar:true
-    })
+    }),
+    NgxPaginationModule
   ]
 })
 export class UserModule { }
