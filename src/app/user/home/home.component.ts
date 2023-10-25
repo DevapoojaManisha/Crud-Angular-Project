@@ -6,10 +6,9 @@ import { UserService } from 'src/app/user.service';
 import { ToastrService } from 'ngx-toastr';
 import{Router} from '@angular/router';
 import { AuthService } from 'src/app/shared/auth.service';
-
-
-import { combineLatest } from "rxjs";
-import { map } from "rxjs/operators";
+import { combineLatest,of ,from} from "rxjs";
+import { map ,switchMap} from "rxjs/operators";
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-home',
@@ -17,11 +16,18 @@ import { map } from "rxjs/operators";
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit{
+
+  searchQuery: string = '';
+  clearIcon = faTimes;
+
   private readonly user$ = this.userService.getAllUser();
-  private readonly appUser$ = this.authService.appUser$;
+ private readonly appUser$ = this.authService.appUser$;
+ //private readonly appUser$: Observable<User | null> = this.authService.appUser$;
+
 
 
   userData$ = combineLatest([this.user$, this.appUser$]).pipe(
+    
     map(([user, appUser]) => ({
       
       userList: user,
@@ -36,7 +42,8 @@ export class HomeComponent implements OnInit{
               private authService : AuthService){}
   ngOnInit(): void {
     
-     // this. getAllUser();
+    
+
   }
   
 
@@ -58,4 +65,35 @@ export class HomeComponent implements OnInit{
     this._toast.error('Data Has Deleted');
   }
 
+  search() {
+    if (this.searchQuery.trim() !== '') {
+      this.userService.getAllUser().subscribe((data) => {
+        const searchQuery = this.searchQuery.toLowerCase().trim();
+        const filteredUsers = data.filter((user) =>
+          user.name.toLowerCase().includes(searchQuery)
+        );
+  
+        this.userData$ = combineLatest([of(filteredUsers), this.appUser$]).pipe(
+          map(([user, appUser]) => ({
+            userList: user,
+            appUser,
+          }))
+        );
+      });
+    }
+  }
+  
+  
+  clearSearch() {
+    this.searchQuery = ''; // Clear the search query
+    this.userData$ = combineLatest([this.userService.getAllUser(), this.appUser$]).pipe(
+      map(([user, appUser]) => ({
+        userList: user,
+        appUser,
+      }))
+    );
+  }
+  
+
+  
 }
