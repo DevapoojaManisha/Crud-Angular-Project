@@ -20,9 +20,9 @@ export class AuthService {
   constructor(private fireauth  : AngularFireAuth, private router : Router,
     private afs : AngularFirestore) { }
 
-
   //login method
-  login(email :  string, passsword : string){
+  login(email: string, passsword: string) {
+    const returnUrl=localStorage.getItem('returnUrl') || '/home';
     this.fireauth.signInWithEmailAndPassword(email,passsword).then(() =>{
       localStorage.setItem('token','true');
 
@@ -90,10 +90,5 @@ private updateUserData(user : any) {
   return userRef.set(data, { merge: true });
 }
 
-isAuthenticated(): Observable<boolean> {
-    return this.fireauth.authState.pipe(
-      map(user => !!user) 
-    );
-  }
 
 }
