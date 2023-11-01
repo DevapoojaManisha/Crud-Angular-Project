@@ -6,7 +6,8 @@ import{Router} from '@angular/router';
 import { AuthService } from 'src/app/shared/auth.service';
 import { combineLatest,of } from "rxjs";
 import { map } from "rxjs/operators";
-import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+
 
 @Component({
   selector: 'app-home',
@@ -15,9 +16,7 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons';
 })
 export class HomeComponent implements OnInit {
   searchQuery: string = '';
-  clearIcon = faTimes;
-  p: number = 1; 
-  itemsPerPage: number = 10; 
+  showClearIcon: boolean = false; 
 
   private readonly user$ = this.userService.getAllUser();
  private readonly appUser$ = this.authService.appUser$;
@@ -79,11 +78,14 @@ map(([user, appUser]) => ({
 );
 });
 }
+  this.showClearIcon = true;
+
 }
 
 
 clearSearch() {
-this.searchQuery = ''; // Clear the search query
+  this.searchQuery = '';
+  this.showClearIcon = false;
 this.userData$ = combineLatest([this.userService.getAllUser(), this.appUser$]).pipe(
 map(([user, appUser]) => ({
 userList: user,

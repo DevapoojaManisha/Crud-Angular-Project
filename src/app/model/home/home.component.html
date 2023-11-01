@@ -1,96 +1,72 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary" style="width: 100%; padding: 15px;"> 
+<nav class="navbar navbar-expand-lg navbar-dark " style="width: 100%; padding: 15px; background-color: #6563ad;"> 
     <div class="container" >
-      <a class="navbar-brand" href="#">Home</a>
+      <a class="navbar-brand" routerLink="/home" >Home</a>
+      <div class="d-flex col-md-6 offset-md-1 ">
+        <form (ngSubmit)="search()" #searchForm="ngForm" >
+          <div class="input-group">
+            <input type="text" class="form-control custom-input" placeholder="Search by Name" [(ngModel)]="searchQuery" name="searchQuery"  />
+            <span class="input-group-text">
+              <i class="fa fa-times" *ngIf="showClearIcon"(click)="clearSearch()"></i>
+            </span>
+          </div>
+        </form>
+      </div>
     </div>
-    <div class="col-sm-6">
-      <button routerLink="/login" class="btn btn-danger mx-2" style="float: right;">Logout</button>
-      <button class="btn btn-success"  style="float: right;" routerLink="/userform/add">Add User</button>
+    <div style="display:flex; align-items: center; color: white;">
+      <div routerLink="/userform/add" class="mx-4" >AddUser</div>
+      <div  class="mx-4" routerLink="/login" style="margin-right: 10px;">Logout</div>
+      <div style="display: flex; align-items: center; color: white;">
+        <i class="fa fa-github mx-2"  style="font-size: 30px;"></i>
+        <a class="github-link" style="color: white;" href="https://github.com/DevapoojaManisha/Crud-Angular-Project.git"
+          target="_blank">GitHub</a>
+      </div>
     </div>
+
   </nav>
   
   
-  <h1 class="display-8 offset-md-5">User Data</h1>
+  <h1 style="font-size:   40px; color: #333; text-align: center; ">User Data</h1>
+    <h5 style="text-align:center">This component demonstrates fetching User data from Google cloud firestore.</h5>
   
   <ng-template #loading>
     <p><em>Loading...</em></p>
-  </ng-template>
-  
-  
-  
-  <div class="row">
-    <div class="col-md-6 offset-md-3">
-      <form (ngSubmit)="search()" #searchForm="ngForm">
-        <div class="input-group mb-3">
-          <input
-            type="text"
-            class="form-control"
-            placeholder="Search by Name"
-            [(ngModel)]="searchQuery"
-            name="searchQuery"
-          />
-          <button type="submit" class="btn btn-primary add-margin">Search</button>
-          <div class="input-group-append">
-            <button class="btn btn-danger" (click)="clearSearch()" style="width: 80px; height: 40px;">
-              <i >X</i>
-            </button>
-          </div>
-        </div>
-      </form>
-    </div>
-  </div>
-  
-  
+  </ng-template> 
   
   <ng-container *ngIf="userData$ | async as userData; else loading">
-    <!--{{userData.userList | json }}-->
-      <ng-container *ngIf="userData.userList.length>0 ; else noData ">
-  
-  
-  
-        <table class="table"  shadow table-striped align-middle table-bordered>
-          <thead class=" table-success">
-            <tr class=" text-center">
-              <!-- <th >Id</th> -->
-              <th >Name</th>
-              <th >Phone</th>
-              <th >Email</th>
+    <ng-container *ngIf="userData.userList.length > 0; else noData">
+      <div class="table-container">
+        <table class="table  custom-bordered-table custom-rounded-table custom-smaller-table">
+          <thead class="bg-success text-white">
+            <tr class="text-center">
+              <th>Name</th>
+              <th>Phone</th>
+              <th>Email</th>
               <th>Website</th>
-              <th *ngIf="userData.appUser"> Actions </th>
+              <th *ngIf="userData.appUser">Actions</th>
             </tr>
           </thead>
           <tbody class="text-center">
-            <tr  *ngFor="let user of userData.userList | paginate: { itemsPerPage: 10, currentPage: p } "
-        >
-        
-              <!-- <th >{{ user.id }}</th> -->
+            <tr *ngFor="let user of userData.userList">
               <td>{{ user.name }}</td>
               <td>{{ user.phone }}</td>
               <td>{{ user.email }}</td>
               <td>{{ user.website }}</td>
               <td *ngIf="userData.appUser">
-  
-  
-                <button
-                class="btn btn-outline-dark"
-                [routerLink]="['/userform/edit/',user.id]"
-              >
-                Edit
+              <button class="btn btn-outline-dark mx-2" [routerLink]="'/userform/edit/' + user.id">
+                <i class="fa fa-pencil"></i>
               </button>
-                <button type="button" style="margin-left: 20px;" class="btn btn-danger" 
-                (click)="delete(user.id)">Delete</button>
+              <button type="button" class="btn btn-danger" (click)="delete(user.id)">
+                <i class="fa fa-trash"></i>
+              </button>
               </td>
             </tr>
           </tbody>
         </table>
-        <div class="d-flex justify-content-center">
-          <pagination-controls (pageChange)="p = $event" previousLabel="Previous" nextLabel="Next"></pagination-controls>
-        </div>      
-      </ng-container>
-      <ng-template #noData>
-        <div class="d-flex justify-content-center">
-          <h4>No records found</h4>
-        </div>
-      </ng-template>
-  
-  
+      </div>
+    </ng-container>
+    <ng-template #noData>
+      <div class="d-flex justify-content-center">
+        <h4>No records found</h4>
+      </div>
+    </ng-template>
   </ng-container>

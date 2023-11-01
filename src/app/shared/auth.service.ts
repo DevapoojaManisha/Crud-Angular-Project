@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import firebase from "firebase/compat/app";
 import { GoogleAuthProvider, GithubAuthProvider } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 
 
@@ -88,6 +90,10 @@ private updateUserData(user : any) {
   return userRef.set(data, { merge: true });
 }
 
-
+isAuthenticated(): Observable<boolean> {
+    return this.fireauth.authState.pipe(
+      map(user => !!user) 
+    );
+  }
 
 }
