@@ -4,8 +4,7 @@ import { Router } from '@angular/router';
 import firebase from "firebase/compat/app";
 import { GoogleAuthProvider, GithubAuthProvider } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+
 
 
 

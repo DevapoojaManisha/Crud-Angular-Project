@@ -21,6 +21,7 @@
         <h3 class="text ">{{ isEdit ? 'Edit User' : 'Add User' }}</h3>
         <hr >
         <form [formGroup]="userForm" (ngSubmit)="onSubmit()" class="thicker-form">
+
           <div class="form-group">
             <label for="name">Name</label>
             <input type="text" id="name" class="form-control" formControlName="name">
@@ -33,6 +34,32 @@
             <div *ngIf="submitted && userForm.get('name')?.hasError('maxlength')" class="text-danger">
               Name cannot exceed 50 characters.
             </div>
+          </div>
+
+
+          <div class="form-group">
+            <label for="gender">Gender</label>
+            <select id="gender" class="form-control" formControlName="gender">
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+              <option value="other">Other</option>
+            </select>
+            <div *ngIf="submitted && userForm.get('gender')?.hasError('required')" class="text-danger">
+              Gender is required.
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="dateOfBirth">Date of Birth</label>
+            <input type="text" id="dateOfBirth" class="form-control" formControlName="dateOfBirth">
+             <div *ngIf="submitted && userForm.get('dateOfBirth')?.hasError('required')" class="text-danger">
+             </div>
+              <div *ngIf="submitted && userForm.get('dateOfBirth')?.hasError('invalidDate')" class="text-danger">
+                  Date of Birth is required. Please use 'dd/mm/yyyy' Format.
+              </div>
+              <div *ngIf="submitted && userForm.get('dateOfBirth')?.hasError('invalidDateFormat')" class="text-danger">
+                  Invalid Date Format. Please use 'dd/mm/yyyy' Format.
+              </div>
           </div>
   
           <div class="form-group">
@@ -60,17 +87,6 @@
             </div>
             <div *ngIf="submitted && userForm.get('email')?.hasError('pattern')" class="text-danger">
               Please enter a valid email address.
-            </div>
-          </div>
-  
-          <div class="form-group">
-            <label for="website">Website</label>
-            <input type="text" id="website" class="form-control" formControlName="website">
-            <div *ngIf="submitted && userForm.get('website')?.hasError('required')" class="text-danger">
-              Website is required.
-            </div>
-            <div *ngIf="submitted && userForm.get('website')?.hasError('maxlength')" class="text-danger">
-              Website URL cannot exceed 100 characters.
             </div>
           </div>
   

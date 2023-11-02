@@ -39,18 +39,20 @@
           <thead class="bg-success text-white">
             <tr class="text-center">
               <th>Name</th>
+              <th>Gender</th>
+              <th>Date of Birth </th>
               <th>Phone</th>
               <th>Email</th>
-              <th>Website</th>
               <th *ngIf="userData.appUser">Actions</th>
             </tr>
           </thead>
           <tbody class="text-center">
             <tr *ngFor="let user of userData.userList">
               <td>{{ user.name }}</td>
+              <td>{{ user.gender }}</td>
+              <td>{{user.dateOfBirth}}</td>
               <td>{{ user.phone }}</td>
               <td>{{ user.email }}</td>
-              <td>{{ user.website }}</td>
               <td *ngIf="userData.appUser">
               <button class="btn btn-outline-dark mx-2" [routerLink]="'/userform/edit/' + user.id">
                 <i class="fa fa-pencil"></i>

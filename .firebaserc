@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "angularpro-13630": {
+      "hosting": {
+        "crudpro": [
+          "angularpro-13630"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "angularpro-13630"
+  }
+}
