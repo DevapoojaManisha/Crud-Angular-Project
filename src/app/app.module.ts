@@ -13,8 +13,6 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
 import { provideStorage, getStorage } from '@angular/fire/storage';
-import { provideAuth,getAuth } from '@angular/fire/auth';
-import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 
 
 
@@ -35,9 +33,7 @@ import { provideFirestore,getFirestore } from '@angular/fire/firestore';
     NgxPaginationModule,
     UserModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
-    provideStorage(() => getStorage()),
-    provideAuth(() => getAuth()),
-    provideFirestore(() => getFirestore())
+    provideStorage(() => getStorage())
     
   ],
   providers: [],
