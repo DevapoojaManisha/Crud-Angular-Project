@@ -6,15 +6,12 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 import { ToastrService } from 'ngx-toastr';
 
 
-
-
 @Component({
   selector: 'app-userform',
   templateUrl: './userform.component.html',
   styleUrls: ['./userform.component.css']
 })
 export class UserformComponent implements OnInit {
-
   userForm!: FormGroup;
   submitted = false;
   isEdit = false; // A flag to determine if it's an edit mode
@@ -36,7 +33,7 @@ export class UserformComponent implements OnInit {
                   phone: ['', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
                   email: ['', [Validators.required, Validators.email]],
                   gender: ['', Validators.required],
-                  dateOfBirth: ['', [Validators.required, this.validateDateOfBirth]]
+                 dateOfBirth: new FormControl(null, [Validators.required]),
                 });
 
                 this.route.params.subscribe(params => {
@@ -121,15 +118,4 @@ export class UserformComponent implements OnInit {
   return null; 
 }
 
-
-
-
-
-  
-
-  
-  
-  
-  
-            }
-            
+}

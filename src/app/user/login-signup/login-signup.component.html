@@ -1,0 +1,38 @@
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="text-center">
+                    <h1 class="text-dark text-muted">{{ mode === 'login' ? 'Login' : 'Signup' }}</h1>
+
+                    <form (ngSubmit)="onSubmit()" #authForm="ngForm">
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label">Email address</label>
+                            <input type="email" class="form-control" name="email" [(ngModel)]="email" required>
+                            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputPassword1" class="form-label">Password</label>
+                            <input type="password" class="form-control" name="password" [(ngModel)]="password" required>
+                        </div>
+                        <button type="submit" class="btn btn-info mb-2">{{ mode === 'login' ? 'Login' : 'Signup'}}</button>    
+                    </form>
+                    <div class="row mt-2" style="text-decoration: none; background-color: white;">
+                        <a (click)="signInWithGoogle()">
+                            <img src="../assets/images/google image.png" alt="" height="24px" width="24p">Sign
+                            in with google
+                        </a>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <a (click)="toggleMode()">
+                                {{ mode === 'login' ? 'Need an Account? Signup' : 'Have an Account? Login' }}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

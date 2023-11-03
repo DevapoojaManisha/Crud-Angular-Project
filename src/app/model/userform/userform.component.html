@@ -1,103 +1,104 @@
 <nav class="navbar navbar-expand-lg navbar-dark " style="width: 100%; padding: 15px; background-color: #6563ad;">
-  <div class="container">
-    <a class="navbar-brand" routerLink="/home">Home</a>
-  </div>
-  <div style="display:flex; align-items: center; color: white;">
-    <div routerLink="/userform/add" class="mx-4">AddUser</div>
-    <div class="mx-4" routerLink="/login" style="margin-right: 10px;">Logout</div>
-    <div style="display: flex; align-items: center; color: white;">
-      <i class="fa fa-github mx-2" style="font-size: 30px;"></i>
-      <a class="github-link" style="color: white;" href="https://github.com/DevapoojaManisha/Crud-Angular-Project.git"
-        target="_blank">GitHub</a>
+    <div class="container">
+        <a class="navbar-brand" routerLink="/home">Home</a>
     </div>
-  </div>
+    <div style="display:flex; align-items: center; color: white;">
+        <div routerLink="/userform/add" class="mx-4">AddUser</div>
+        <div class="mx-4" routerLink="/login" style="margin-right: 10px;">Logout</div>
+        <div style="display: flex; align-items: center; color: white;">
+            <i class="fa fa-github mx-2" style="font-size: 30px;"></i>
+            <a class="github-link" style="color: white;"
+                href="https://github.com/DevapoojaManisha/Crud-Angular-Project.git" target="_blank">GitHub</a>
+        </div>
+    </div>
 
 </nav>
 
 
 <div class="container">
     <div class="row">
-      <div class="col-md-6 offset-md-3">
-        <h3 class="text ">{{ isEdit ? 'Edit User' : 'Add User' }}</h3>
-        <hr >
-        <form [formGroup]="userForm" (ngSubmit)="onSubmit()" class="thicker-form">
+        <div class="col-md-6 offset-md-3">
+            <h3 class="text ">{{ isEdit ? 'Edit User' : 'Add User' }}</h3>
+            <hr>
+            <form [formGroup]="userForm" (ngSubmit)="onSubmit()" class="thicker-form">
 
-          <div class="form-group">
-            <label for="name">Name</label>
-            <input type="text" id="name" class="form-control" formControlName="name">
-            <div *ngIf="submitted && userForm.get('name')?.hasError('required')" class="text-danger">
-              Name is required.
-            </div>
-            <div *ngIf="submitted && userForm.get('name')?.hasError('minlength')" class="text-danger">
-              Name must be at least 3 characters long.
-            </div>
-            <div *ngIf="submitted && userForm.get('name')?.hasError('maxlength')" class="text-danger">
-              Name cannot exceed 50 characters.
-            </div>
-          </div>
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" class="form-control" formControlName="name">
+                    <div *ngIf="submitted && userForm.get('name')?.hasError('required')" class="text-danger">
+                        Name is required.
+                    </div>
+                    <div *ngIf="submitted && userForm.get('name')?.hasError('minlength')" class="text-danger">
+                        Name must be at least 3 characters long.
+                    </div>
+                    <div *ngIf="submitted && userForm.get('name')?.hasError('maxlength')" class="text-danger">
+                        Name cannot exceed 50 characters.
+                    </div>
+                </div>
 
 
-          <div class="form-group">
-            <label for="gender">Gender</label>
-            <select id="gender" class="form-control" formControlName="gender">
-              <option value="male">Male</option>
-              <option value="female">Female</option>
-              <option value="other">Other</option>
-            </select>
-            <div *ngIf="submitted && userForm.get('gender')?.hasError('required')" class="text-danger">
-              Gender is required.
-            </div>
-          </div>
+                <div class="form-group">
+                    <label for="gender">Gender</label>
+                    <select id="gender" class="form-control" formControlName="gender">
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">Other</option>
+                    </select>
+                    <div *ngIf="submitted && userForm.get('gender')?.hasError('required')" class="text-danger">
+                        Gender is required.
+                    </div>
+                </div>
 
-          <div class="form-group">
-            <label for="dateOfBirth">Date of Birth</label>
-            <input type="text" id="dateOfBirth" class="form-control" formControlName="dateOfBirth">
-             <div *ngIf="submitted && userForm.get('dateOfBirth')?.hasError('required')" class="text-danger">
-             </div>
-              <div *ngIf="submitted && userForm.get('dateOfBirth')?.hasError('invalidDate')" class="text-danger">
-                  Date of Birth is required. Please use 'dd/mm/yyyy' Format.
-              </div>
-              <div *ngIf="submitted && userForm.get('dateOfBirth')?.hasError('invalidDateFormat')" class="text-danger">
-                  Invalid Date Format. Please use 'dd/mm/yyyy' Format.
-              </div>
-          </div>
-  
-          <div class="form-group">
-            <label for="phone">Phone</label>
-            <input type="text" id="phone" class="form-control" formControlName="phone">
-            <div *ngIf="submitted && userForm.get('phone')?.hasError('required')" class="text-danger">
-              Phone is required.
-            </div>
-            <div *ngIf="submitted && userForm.get('phone')?.hasError('pattern')" class="text-danger">
-              Please enter a valid phone number (e.g., 9967852424).
-            </div>
-          </div>
-  
-          <div class="form-group">
-            <label for="email">Email</label>
-            <input type="text" id="email" class="form-control" formControlName="email">
-            <div *ngIf="submitted && userForm.get('email')?.hasError('required')" class="text-danger">
-              Email is required.
-            </div>
-            <div *ngIf="submitted && userForm.get('email')?.hasError('email')" class="text-danger">
-              Please enter a valid email address.
-            </div>
-            <div *ngIf="submitted && userForm.get('email')?.hasError('maxlength')" class="text-danger">
-              Email cannot exceed 100 characters.
-            </div>
-            <div *ngIf="submitted && userForm.get('email')?.hasError('pattern')" class="text-danger">
-              Please enter a valid email address.
-            </div>
-          </div>
-  
-          <div class="form-group">
-            <button class="btn  "style="background-color:#6563ad ;color:white " type="submit">
-              {{ isEdit ? 'Update User' : 'Add User' }}
-            </button>
-            <button class="btn btn-danger mx-2" (click)="cancelEdit()">Cancel</button>
-          </div>
-        </form>
-      </div>
+                <div class="form-group">
+                    <label for="dateOfBirth">Date of Birth</label>
+                    <input type="text" id="dateOfBirth" class="form-control" formControlName="dateOfBirth">
+                    <div *ngIf="submitted && userForm.get('dateOfBirth')?.hasError('required')" class="text-danger">
+                    </div>
+                    <div *ngIf="submitted && userForm.get('dateOfBirth')?.hasError('invalidDate')" class="text-danger">
+                        Date of Birth is required. Please use 'dd/mm/yyyy' Format.
+                    </div>
+                    <div *ngIf="submitted && userForm.get('dateOfBirth')?.hasError('invalidDateFormat')"
+                        class="text-danger">
+                        Invalid Date Format. Please use 'dd/mm/yyyy' Format.
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Phone</label>
+                    <input type="text" id="phone" class="form-control" formControlName="phone">
+                    <div *ngIf="submitted && userForm.get('phone')?.hasError('required')" class="text-danger">
+                        Phone is required.
+                    </div>
+                    <div *ngIf="submitted && userForm.get('phone')?.hasError('pattern')" class="text-danger">
+                        Please enter a valid phone number (e.g., 9967852424).
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="text" id="email" class="form-control" formControlName="email">
+                    <div *ngIf="submitted && userForm.get('email')?.hasError('required')" class="text-danger">
+                        Email is required.
+                    </div>
+                    <div *ngIf="submitted && userForm.get('email')?.hasError('email')" class="text-danger">
+                        Please enter a valid email address.
+                    </div>
+                    <div *ngIf="submitted && userForm.get('email')?.hasError('maxlength')" class="text-danger">
+                        Email cannot exceed 100 characters.
+                    </div>
+                    <div *ngIf="submitted && userForm.get('email')?.hasError('pattern')" class="text-danger">
+                        Please enter a valid email address.
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <button class="btn  " style="background-color:#6563ad ;color:white " type="submit">
+                        {{ isEdit ? 'Update User' : 'Add User' }}
+                    </button>
+                    <button class="btn btn-danger mx-2" (click)="cancelEdit()">Cancel</button>
+                </div>
+            </form>
+        </div>
     </div>
-  </div>
-  
+</div>
+

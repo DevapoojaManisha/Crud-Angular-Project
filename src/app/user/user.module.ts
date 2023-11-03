@@ -4,17 +4,15 @@ import { CommonModule } from '@angular/common';
 import { UserRoutingModule } from './user-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
-import { SignupComponent } from './signup/signup.component';
-import { LoginComponent } from './login/login.component';
 import { HomeComponent } from '../model/home/home.component';
 import { UserformComponent } from '../model/userform/userform.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { LoginSignupComponent } from './login-signup/login-signup.component';
 @NgModule({
   declarations: [
-    SignupComponent,
-    LoginComponent,
     HomeComponent,
-    UserformComponent
+    UserformComponent,
+    LoginSignupComponent
   ],
   imports: [
     CommonModule,
