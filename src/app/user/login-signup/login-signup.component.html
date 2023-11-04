@@ -5,18 +5,13 @@
     <body>
         <div class="center">
             <input type="checkbox" id="show">
-            <label for="show" class="show-btn"><i class="fas fa-hand-pointer"></i></label>
+            <label for="show" class="show-btn">{{ mode === 'login' ? 'Login' : 'Signup' }}</label>
             <div class="container">
-                <label for="show" class="close-btn" title="close">✖</label>
-                <div class="button-box "  >
-                    <div class="inner " [style.left.%]="mode === 'login' ? 0 : 100"></div>
-                    <button type="button" class="toggle-btn " (click)="toggleMode('login')" [@moveButton]="mode">
-                        Log In
-                    </button>
-                    <button type="button" class="toggle-btn " (click)="toggleMode('signup')" [@moveButton]="mode">
-                        Sign Up
-                    </button>
+                <label for="show" class="close-btn fas fa-times" title="close"></label>
+                <div class="text">
+                    {{ mode === 'login' ? 'Login Form' : 'Signup Form' }}
                 </div>
+
                 <form (ngSubmit)="onSubmit()" #authForm="ngForm">
                     <div id="login" class="data">
                         <div class="input-container">
@@ -40,6 +35,10 @@
                     <div class="btn">
                         <div class="inner"></div>
                         <button type="submit">{{ mode === 'login' ? 'Login' : 'Signup' }}</button>
+                    </div>
+                    <div class="signup-link">
+                        {{ mode === 'login' ? 'Not a member? ' : 'Already a member? ' }}<a (click)="toggleMode()">{{ mode === 'login' ?
+                            'Signup now' : 'Login' }}</a>
                     </div>
                     <hr>
                     <div class="google-img" style="text-align: center;">

@@ -49,9 +49,14 @@ export class LoginSignupComponent implements OnInit{
     this.mode === 'login' ? this.router.navigate(['/home']) : this.router.navigate(['/login']);
   }
 
-  toggleMode(newMode: 'login' | 'signup') {
+  /*toggleMode(newMode: 'login' | 'signup') {
   this.mode = newMode;
+  }*/
+  
+  toggleMode() {
+  this.mode = this.mode === 'login' ? 'signup' : 'login';
 }
+
 
 
   signInWithGoogle() {
