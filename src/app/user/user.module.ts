@@ -12,7 +12,7 @@ import { LoginSignupComponent } from './login-signup/login-signup.component';
   declarations: [
     HomeComponent,
     UserformComponent,
-    LoginSignupComponent
+    LoginSignupComponent,
   ],
   imports: [
     CommonModule,

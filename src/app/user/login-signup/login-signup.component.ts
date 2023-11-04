@@ -1,16 +1,27 @@
 import { Component ,OnInit} from '@angular/core';
 import { AuthService } from 'src/app/shared/auth.service';
 import { Router } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { trigger, state, style, transition, animate } from '@angular/animations';
 
 @Component({
   selector: 'app-login-signup',
   templateUrl: './login-signup.component.html',
-  styleUrls: ['./login-signup.component.css']
+  styleUrls: ['./login-signup.component.css'],
+  animations: [
+    trigger('moveButton', [
+      state('login', style({ transform: 'translateX(0)' })),
+      state('signup', style({ transform: 'translateX(45%)' })),
+      transition('* => *', animate('0.5s'))
+    ])
+  ]
 })
 export class LoginSignupComponent implements OnInit{
   email: string = '';
   password: string = '';
   mode: 'login' | 'signup' = 'login';
+  showPassword: boolean = false;
+  
 
   constructor(private auth: AuthService, private router: Router) {}
 
@@ -38,9 +49,10 @@ export class LoginSignupComponent implements OnInit{
     this.mode === 'login' ? this.router.navigate(['/home']) : this.router.navigate(['/login']);
   }
 
-  toggleMode() {
-    this.mode = this.mode === 'login' ? 'signup' : 'login';
-  }
+  toggleMode(newMode: 'login' | 'signup') {
+  this.mode = newMode;
+}
+
 
   signInWithGoogle() {
     this.auth.googlesignIn()
@@ -50,5 +62,9 @@ export class LoginSignupComponent implements OnInit{
       .catch(error => {
         console.error('Google login failed:', error);
       });
+  }
+
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
   }
 }

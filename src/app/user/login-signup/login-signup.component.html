@@ -1,38 +1,55 @@
 
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-md-6">
-            <div class="card">
-                <div class="text-center">
-                    <h1 class="text-dark text-muted">{{ mode === 'login' ? 'Login' : 'Signup' }}</h1>
-
-                    <form (ngSubmit)="onSubmit()" #authForm="ngForm">
-                        <div class="mb-3">
-                            <label for="exampleInputEmail1" class="form-label">Email address</label>
-                            <input type="email" class="form-control" name="email" [(ngModel)]="email" required>
-                            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+<body>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+    
+    <body>
+        <div class="center">
+            <input type="checkbox" id="show">
+            <label for="show" class="show-btn"><i class="fas fa-hand-pointer"></i></label>
+            <div class="container">
+                <label for="show" class="close-btn" title="close">✖</label>
+                <div class="button-box "  >
+                    <div class="inner " [style.left.%]="mode === 'login' ? 0 : 100"></div>
+                    <button type="button" class="toggle-btn " (click)="toggleMode('login')" [@moveButton]="mode">
+                        Log In
+                    </button>
+                    <button type="button" class="toggle-btn " (click)="toggleMode('signup')" [@moveButton]="mode">
+                        Sign Up
+                    </button>
+                </div>
+                <form (ngSubmit)="onSubmit()" #authForm="ngForm">
+                    <div id="login" class="data">
+                        <div class="input-container">
+                            <i class="login__icon fas fa-user"></i>
+                            <input type="text" class="login__input" name="email" [(ngModel)]="email" required
+                                placeholder="{{ mode === 'login' ? 'Email' : 'Email' }}">
                         </div>
-                        <div class="mb-3">
-                            <label for="exampleInputPassword1" class="form-label">Password</label>
-                            <input type="password" class="form-control" name="password" [(ngModel)]="password" required>
+                    </div>
+    
+                    <div id="signup" class="data">
+                        <div class="input-container">
+                            <i class="login__icon fas fa-lock"></i>
+                            <input [type]="showPassword ? 'text' : 'password'" class="login__input" name="password"
+                                [(ngModel)]="password" required placeholder="Password">
+                            <span class="password-toggle" (click)="togglePasswordVisibility()">
+                                <i class="fas" [ngClass]="showPassword ? 'fa-eye ' : 'fa-eye-slash'"></i>
+                            </span>
                         </div>
-                        <button type="submit" class="btn btn-info mb-2">{{ mode === 'login' ? 'Login' : 'Signup'}}</button>    
-                    </form>
-                    <div class="row mt-2" style="text-decoration: none; background-color: white;">
+                    </div>
+    
+                    <div class="btn">
+                        <div class="inner"></div>
+                        <button type="submit">{{ mode === 'login' ? 'Login' : 'Signup' }}</button>
+                    </div>
+                    <hr>
+                    <div class="google-img" style="text-align: center;">
                         <a (click)="signInWithGoogle()">
-                            <img src="../assets/images/google image.png" alt="" height="24px" width="24p">Sign
-                            in with google
+                            <img src="../assets/images/google image.png" height="50px" width="50px">
                         </a>
                     </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <a (click)="toggleMode()">
-                                {{ mode === 'login' ? 'Need an Account? Signup' : 'Have an Account? Login' }}
-                            </a>
-                        </div>
-                    </div>
-                </div>
+                </form>
             </div>
         </div>
-    </div>
-</div>
+    </body>
+
+</body>
