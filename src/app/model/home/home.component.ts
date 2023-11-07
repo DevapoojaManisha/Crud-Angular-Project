@@ -1,12 +1,11 @@
 import { Component ,OnInit} from '@angular/core';
-import { User } from 'src/app/user'; 
 import { UserService } from 'src/app/shared/user.service'; 
 import { ToastrService } from 'ngx-toastr';
 import{Router} from '@angular/router';
 import { AuthService } from 'src/app/shared/auth.service';
 import { combineLatest,of } from "rxjs";
 import { map } from "rxjs/operators";
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+
 
 
 @Component({
@@ -17,9 +16,13 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 export class HomeComponent implements OnInit {
   searchQuery: string = '';
   showClearIcon: boolean = false; 
+  clearIcon: boolean = false; 
+  p: number = 1; 
+  itemsPerPage: number = 10;
+  
 
   private readonly user$ = this.userService.getAllUser();
- private readonly appUser$ = this.authService.appUser$;
+  private readonly appUser$ = this.authService.appUser$;
  
   userData$ = combineLatest([this.user$, this.appUser$]).pipe(
     
@@ -34,7 +37,9 @@ export class HomeComponent implements OnInit {
     private _toast:ToastrService,
     private router:Router,
     private authService : AuthService){}
-ngOnInit(): void {}
+  ngOnInit(): void {
+
+  }
 
 
 delete(userId: string) {
@@ -81,4 +86,9 @@ clearSearch() {
     }))
   );
 }
+  
+  
+  
+
+
 }

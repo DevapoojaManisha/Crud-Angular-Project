@@ -1,0 +1,76 @@
+<body>
+    <div class="header">
+        <img src="../assets/images/passvault1.jpg" alt="" class="logo-image">
+        <div class="logo">
+            <h1 >PassVault</h1>
+        </div>
+        <div class="header-buttons">
+            <a routerLink="/login" class="button no-underline mov">Login</a>
+            <a routerLink="/signup" class="button no-underline">Signup</a>
+            <a (click)="toggleAboutContent()" class="button no-underline">About</a>
+            <a (click)="toggleHelpContent()" class="button no-underline">Help</a>
+        </div>
+    </div>
+<div class="container" *ngIf="!showAboutContent  && !showHelpContent">
+    <div class="right-align">
+        <h2>Choose your own</h2>
+        <h2>safest place to store passwords</h2>
+        <div class="fontstyle">
+        <h4 >"PassVault: Your Secure Password Choice"</h4>
+        <h4>With PassVault, it's your call.Protect and </h4>
+        <h4>sync your passwords where you prefer,</h4>
+        <h4>whether online or offline. Your data,your way.</h4>
+        </div>
+    </div>
+    <div class="pic">
+    <img src="../assets/images/PassVault2.jpg" width="540" height="430" >
+    </div>
+</div>
+
+<div class="container" *ngIf="showAboutContent">
+    <div class="row">
+        <div class="col-md-4">
+            <!-- Left column for the image -->
+            <img src="../assets/images/passvault3.jpg" alt="Image" class="img-fluid">
+        </div>
+        <div class="col-md-8 content-container ">
+            <h3>About Our Password Management Service</h3>
+            <p class="above">Welcome to PassVault, your trusted partner in secure password management. Our mission is to
+                simplify your
+                digital life while ensuring the highest levels of security and privacy for your sensitive information.
+            </p>
+            <h3>Our Commitment to Security</h3>
+            <p>At PassVault , we take your security seriously. Your data is encrypted and protected with the
+                latest security
+                measures, including strong encryption protocols and secure connections. Rest assured, your information
+                is in safe hands.</p>
+            <h3>Your Privacy Matters</h3>
+            <p>We value your privacy. Our data privacy policy is clear: your data is yours and yours alone. We do not
+                sell, share, or
+                use your data for any purpose other than providing our services. Your trust is our priority.</p>
+            <h3>Easy-to-Use Interface</h3>
+            <p>Our user-friendly interface makes managing your passwords a breeze. We're committed to providing an
+                intuitive and convenient experience for all users.</p>
+            <p>Thank you for choosing PassVault . We're here to simplify and secure your digital world.</p>
+            <a class="home" (click)="toggleAboutContent()" style="margin-bottom: 200px;">Back to Home</a>
+        </div>
+    </div>
+</div>
+
+
+<div class="container " *ngIf="showHelpContent">
+    <div class="row">
+        <div class="col-md-12  ">
+            <h3>Help Content</h3>
+            <p>Thank you for choosing [Your Website Name] as your password management solution. We're here to provide the support and
+            resources you need for a safe and convenient experience...</p>
+            <a class="home" (click)="toggleHelpContent()" style="margin-bottom: 200px;">Back to Home</a>
+        </div>
+    </div>
+</div>
+
+
+</body>
+
+
+

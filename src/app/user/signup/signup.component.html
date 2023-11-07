@@ -1,0 +1,46 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+
+<body>
+    <div class="center">
+        <div class="container" class="show-btn">
+            <div class="text ">
+                Signup Form
+                <span class="close-icon" routerLink="/homepage">✖</span>
+            </div>
+            <form (ngSubmit)="signup()" #authForm="ngForm">
+                <div id="login" class="data">
+                    <div class="input-container">
+                        <i class="login__icon fas fa-user"></i>
+                        <input type="text" class="login__input" name="email" [(ngModel)]="email" required
+                            placeholder="Email">
+                    </div>
+                </div>
+
+                <div id="signup" class="data">
+                    <div class="input-container">
+                        <i class="login__icon fas fa-lock"></i>
+                        <input [type]="showPassword ? 'text' : 'password'" class="login__input" name="password"
+                            [(ngModel)]="password" required placeholder="Password">
+                        <span class="password-toggle" (click)="togglePasswordVisibility()">
+                            <i class="fas" [ngClass]="showPassword ? 'fa-eye ' : 'fa-eye-slash'"></i>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="btn">
+                    <div class="inner"></div>
+                    <button type="submit">Signup</button>
+                </div>
+                <div class="signup-link">
+                    Already a member? <a routerLink="/login">Login</a>
+                </div>
+                <hr>
+                <div class="google-img" style="text-align: center;">
+                    <a (click)="signInWithGoogle()">
+                        <img src="../assets/images/google image.png" height="50px" width="50px">
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>

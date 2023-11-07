@@ -2,7 +2,7 @@
     <div class="container">
         <a class="navbar-brand" routerLink="/home">Home</a>
     </div>
-    <div style="display:flex; align-items: center; color: white;">
+    <div class="user" style="display:flex; align-items: center; color: white;">
         <div routerLink="/userform/add" class="mx-4">AddUser</div>
         <div class="mx-4" routerLink="/login" style="margin-right: 10px;">Logout</div>
         <div style="display: flex; align-items: center; color: white;">
@@ -14,11 +14,11 @@
 
 </nav>
 
-
+<br>
 <div class="container">
     <div class="row">
         <div class="col-md-6 offset-md-3">
-            <h3 class="text ">{{ isEdit ? 'Edit User' : 'Add User' }}</h3>
+            <h3 class="text ">{{ isEdit ? 'Edit ' : 'Add Site' }}</h3>
             <hr>
             <form [formGroup]="userForm" (ngSubmit)="onSubmit()" class="thicker-form">
 
@@ -36,32 +36,6 @@
                     </div>
                 </div>
 
-
-                <div class="form-group">
-                    <label for="gender">Gender</label>
-                    <select id="gender" class="form-control" formControlName="gender">
-                        <option value="male">Male</option>
-                        <option value="female">Female</option>
-                        <option value="other">Other</option>
-                    </select>
-                    <div *ngIf="submitted && userForm.get('gender')?.hasError('required')" class="text-danger">
-                        Gender is required.
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="dateOfBirth">Date of Birth</label>
-                    <input type="text" id="dateOfBirth" class="form-control" formControlName="dateOfBirth">
-                    <div *ngIf="submitted && userForm.get('dateOfBirth')?.hasError('required')" class="text-danger">
-                    </div>
-                    <div *ngIf="submitted && userForm.get('dateOfBirth')?.hasError('invalidDate')" class="text-danger">
-                        Date of Birth is required. Please use 'dd/mm/yyyy' Format.
-                    </div>
-                    <div *ngIf="submitted && userForm.get('dateOfBirth')?.hasError('invalidDateFormat')"
-                        class="text-danger">
-                        Invalid Date Format. Please use 'dd/mm/yyyy' Format.
-                    </div>
-                </div>
 
                 <div class="form-group">
                     <label for="phone">Phone</label>
@@ -92,8 +66,35 @@
                 </div>
 
                 <div class="form-group">
+                    <label for="website">Website</label>
+                    <input type="text" id="website" class="form-control" formControlName="website">
+                    <div *ngIf="submitted && userForm.get('website')?.hasError('required')" class="text-danger">
+                        Website is required.
+                    </div>
+                    <div *ngIf="submitted && userForm.get('website')?.hasError('pattern')" class="text-danger">
+                        Please enter a valid website address (e.g., www.example.com).
+                    </div>
+                    <div *ngIf="submitted && userForm.get('website')?.hasError('maxlength')" class="text-danger">
+                        Website cannot exceed 100 characters.
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" class="form-control" formControlName="password">
+                    <div *ngIf="submitted && userForm.get('password')?.hasError('required')" class="text-danger">
+                        Password is required.
+                    </div>
+                    <div *ngIf="submitted && userForm.get('password')?.hasError('minlength')" class="text-danger">
+                        Password must be at least 6 characters long.
+                    </div>
+                </div>
+
+
+                <div class="form-group">
                     <button class="btn  " style="background-color:#6563ad ;color:white " type="submit">
-                        {{ isEdit ? 'Update User' : 'Add User' }}
+                        {{ isEdit ? 'Update ' : 'Add Site ' }}
                     </button>
                     <button class="btn btn-danger mx-2" (click)="cancelEdit()">Cancel</button>
                 </div>

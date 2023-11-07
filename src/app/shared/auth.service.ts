@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import firebase from "firebase/compat/app";
 import { GoogleAuthProvider, GithubAuthProvider } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { ToastrService } from 'ngx-toastr';
 
 
 
@@ -17,7 +18,7 @@ export class AuthService {
 
 
   constructor(private fireauth  : AngularFireAuth, private router : Router,
-    private afs : AngularFirestore) { }
+    private afs : AngularFirestore,private _toast:ToastrService,) { }
 
   //login method
   login(email: string, passsword: string) {
@@ -29,7 +30,7 @@ export class AuthService {
       this.fireauth
       .signInWithPopup(new firebase.auth.GoogleAuthProvider())
       .then((credential) => this.updateUserData(credential.user));
-      
+      this._toast.success('Successfully logged in!');
       this.router.navigate(['/home'])
     }, err =>{
       alert('something went wrong');
@@ -44,7 +45,7 @@ export class AuthService {
   // signup method
   signup(email: string, passsword : string) {
     this.fireauth.createUserWithEmailAndPassword(email, passsword).then(() => {
-      alert('Registration Successful');
+      this._toast.success('Registration Successful');
       this.router.navigate(['/login']);
     }, err => {
       alert(err.message);
@@ -57,7 +58,7 @@ export class AuthService {
   logout() {
     console.log("Logging out...");
     this.fireauth.signOut().then(() => {
-      console.log("Successfully signed out.");
+      this._toast.success("Successfully signed out.");
       localStorage.removeItem('token');
       this.router.navigate(["/login"]);
     }).catch(err => {

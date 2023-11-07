@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark " style="width: 100%; padding: 15px; background-color: #6563ad;"> 
+<nav class="navbar navbar-expand-lg navbar-dark " style="width: 100%; padding: 15px; background:linear-gradient(to right, #3498db, #9f01ea);"> 
     <div class="container" >
       <a class="navbar-brand" routerLink="/home" ><i class="fa fa-home home mx-1"></i>Home</a>
       <div class="d-flex col-md-6 offset-md-1 ">
@@ -13,26 +13,27 @@
       </div>
     </div>
     <div class="color">
-      <div class="color">
-        <i class="fa fa-user mx-2" ></i>
-        <div class="space"routerLink="/userform/add" >AddUser</div>
+      <div class="color" routerLink="/userform/add">
+        <i class="fa fa-plus mx-2"  ></i>
+        <div class="space" >AddSite</div>
       </div>
-      <div class="color" routerLink="/login">
+      <div class="color" routerLink="/homepage">
         <i class="fa fa-power-off mx-2" ></i>
         <div class="space"  >Logout</div>
       </div>
       <div class="color">
         <i class="fa fa-github mx-2"></i>
-        <a class="github-link" style="color: white; " href="https://github.com/DevapoojaManisha/Crud-Angular-Project.git"
-          target="_blank">GitHub</a>
+        <div class="github-link" style="color: white; " href="https://github.com/DevapoojaManisha/Crud-Angular-Project.git"
+          target="_blank">GitHub</div>
       </div>
     </div>
-
   </nav>
   
   
-  <h1 style="font-size:   40px; color: #333; text-align: center; ">User Data</h1>
-    <h5 style="text-align:center">This component demonstrates fetching User data from Google cloud firestore.</h5>
+  
+  <h1 class="align" >PassVault</h1>
+    <h3 style="text-align:center">Create one master password and let PassVault take care of the rest. Logins, credit cards, ID cards and other important
+    information stored in one safe place..</h3>
   
   <ng-template #loading>
     <p><em>Loading...</em></p>
@@ -45,20 +46,22 @@
           <thead class="bg-success text-white">
             <tr class="text-center">
               <th>Name</th>
-              <th>Gender</th>
-              <th>Date of Birth </th>
               <th>Phone</th>
               <th>Email</th>
+              <th>Website</th>
+              <th>Password</th>
               <th *ngIf="userData.appUser">Actions</th>
             </tr>
           </thead>
           <tbody class="text-center">
-            <tr *ngFor="let user of userData.userList">
+            <tr *ngFor="let user of userData.userList | paginate: { itemsPerPage: 10, currentPage: p }">
               <td>{{ user.name }}</td>
-              <td>{{ user.gender }}</td>
-              <td>{{user.dateOfBirth}}</td>
               <td>{{ user.phone }}</td>
               <td>{{ user.email }}</td>
+              <td>
+                <a *ngIf="user.website" [href]="'http://' + user.website" target="_blank">{{ user.website }}</a>
+              </td>
+              <td>{{ user.password}}</td>
               <td *ngIf="userData.appUser">
               <button class="btn btn-outline-dark mx-2" [routerLink]="'/userform/edit/' + user.id">
                 <i class="fa fa-pencil"></i>
@@ -70,6 +73,9 @@
             </tr>
           </tbody>
         </table>
+      </div>
+      <div class="d-flex justify-content-center">
+        <pagination-controls (pageChange)="p = $event" previousLabel="Previous" nextLabel="Next"></pagination-controls>
       </div>
     </ng-container>
     <ng-template #noData>

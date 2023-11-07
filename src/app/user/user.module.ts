@@ -7,12 +7,16 @@ import { ToastrModule } from 'ngx-toastr';
 import { HomeComponent } from '../model/home/home.component';
 import { UserformComponent } from '../model/userform/userform.component';
 import { NgxPaginationModule } from 'ngx-pagination';
-import { LoginSignupComponent } from './login-signup/login-signup.component';
+import { HomepageComponent } from './homepage/homepage.component';
+import { LoginComponent } from './login/login.component';
+import { SignupComponent } from './signup/signup.component';
 @NgModule({
   declarations: [
     HomeComponent,
     UserformComponent,
-    LoginSignupComponent,
+    HomepageComponent,
+    LoginComponent,
+    SignupComponent,
   ],
   imports: [
     CommonModule,

@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { User } from '../user'; 
 import { Observable ,from} from 'rxjs';
-import { map } from 'rxjs/operators'; // Import 'map' from 'rxjs/operators'
+import { map } from 'rxjs/operators';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
+
 
   constructor(private readonly angularFireStore: AngularFirestore) { }
 

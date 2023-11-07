@@ -3,20 +3,26 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './model/home/home.component'; 
 import { UserformComponent } from './model/userform/userform.component';
 import { AuthClassGuard } from './shared/auth-class.guard';
-import { LoginSignupComponent } from './user/login-signup/login-signup.component';
+import { HomepageComponent } from './user/homepage/homepage.component';
+import { LoginComponent } from './user/login/login.component';
+import { SignupComponent } from './user/signup/signup.component';
 
 
 
 const routes: Routes = [
-  {path: '', redirectTo:'login', pathMatch:'full'},
+  {path: '', redirectTo:'homepage', pathMatch:'full'},
   {
     path:'login',
-    component:LoginSignupComponent,
+    component: LoginComponent
   },
   {
     path:'signup',
-    component:LoginSignupComponent,
+    component:SignupComponent
    
+  },
+  {
+    path: 'homepage',
+    component:HomepageComponent
   },
   {
     path:'home',

@@ -16,8 +16,6 @@ export class UserformComponent implements OnInit {
   submitted = false;
   isEdit = false; // A flag to determine if it's an edit mode
   userId: string='';
-  user = new User();
-  today: Date = new Date();
 
   constructor(private userService: UserService,
               private route: ActivatedRoute,
@@ -32,8 +30,8 @@ export class UserformComponent implements OnInit {
                   name: ['', Validators.required],
                   phone: ['', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
                   email: ['', [Validators.required, Validators.email]],
-                  gender: ['', Validators.required],
-                 dateOfBirth: new FormControl(null, [Validators.required]),
+                  website: ['', [Validators.required, Validators.maxLength(100), Validators.pattern('^www\\..*\\..*')]],
+                  password: ['', [Validators.required, Validators.minLength(6)]],
                 });
 
                 this.route.params.subscribe(params => {
@@ -46,10 +44,10 @@ export class UserformComponent implements OnInit {
                         this.userForm.setValue({
                           userId: user.id,
                           name: user.name,
-                          gender: user.gender,
                           phone: user.phone,
                           email: user.email,
-                          dateOfBirth: user.dateOfBirth
+                          website: user.website,
+                          password:user.password
                         });
                       }
                     });
@@ -76,12 +74,12 @@ export class UserformComponent implements OnInit {
                 } else {
                   if (this.isEdit) {
                     this.userService.update(this.userId, user).then(() => {
-                      this.showSuccess('User Data Successfully Updated', user.name);
+                      this.showSuccess('Site Data Successfully Updated', user.name);
                       this.router.navigate(['home']);
                     });
                   } else {
                     this.userService.saveUser(user).then(() => {
-                      this.showSuccess('User Data Successfully Added', user.name);
+                      this.showSuccess('Site Data Successfully Added', user.name);
                       this.router.navigate(['home']);
                     });
                   }
@@ -97,25 +95,6 @@ export class UserformComponent implements OnInit {
               }
   
   
-  validateDateOfBirth(control: FormControl) {
- 
-  const dateFormatRegex = /^(0[1-9]|[12][0-9]|3[01])[/](0[1-9]|1[0-2])[/]\d{4}$/;
-
-  if (!dateFormatRegex.test(control.value)) {
-    return { invalidDateFormat: true };
-  }
-
-  const dateParts = control.value.split('/');
-  const day = parseInt(dateParts[0], 10);
-  const month = parseInt(dateParts[1], 10);
-  const year = parseInt(dateParts[2], 10);
-
-  if (day < 1 || day > 31 || month < 1 || month > 12) {
-    return { invalidDate: true };
-  }
-
-
-  return null; 
-}
+  
 
 }

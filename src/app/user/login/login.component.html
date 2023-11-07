@@ -1,26 +1,21 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
 
-<body>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
-    
     <body>
         <div class="center">
-            <input type="checkbox" id="show">
-            <label for="show" class="show-btn">{{ mode === 'login' ? 'Login' : 'Signup' }}</label>
-            <div class="container">
-                <label for="show" class="close-btn fas fa-times" title="close"></label>
-                <div class="text">
-                    {{ mode === 'login' ? 'Login Form' : 'Signup Form' }}
+            <div class="container" class="show-btn" >
+                <div class="text ">
+                    Login Form
+                    <span class="close-icon" routerLink="/homepage">✖</span>
                 </div>
-
-                <form (ngSubmit)="onSubmit()" #authForm="ngForm">
+                <form (ngSubmit)="login()" #authForm="ngForm">
                     <div id="login" class="data">
                         <div class="input-container">
                             <i class="login__icon fas fa-user"></i>
                             <input type="text" class="login__input" name="email" [(ngModel)]="email" required
-                                placeholder="{{ mode === 'login' ? 'Email' : 'Email' }}">
+                                placeholder="Email">
                         </div>
                     </div>
-    
+
                     <div id="signup" class="data">
                         <div class="input-container">
                             <i class="login__icon fas fa-lock"></i>
@@ -31,14 +26,13 @@
                             </span>
                         </div>
                     </div>
-    
+
                     <div class="btn">
                         <div class="inner"></div>
-                        <button type="submit">{{ mode === 'login' ? 'Login' : 'Signup' }}</button>
+                        <button type="submit">Login</button>
                     </div>
                     <div class="signup-link">
-                        {{ mode === 'login' ? 'Not a member? ' : 'Already a member? ' }}<a (click)="toggleMode()">{{ mode === 'login' ?
-                            'Signup now' : 'Login' }}</a>
+                        Not a member? <a routerLink="/signup">Signup now</a>
                     </div>
                     <hr>
                     <div class="google-img" style="text-align: center;">
@@ -49,6 +43,6 @@
                 </form>
             </div>
         </div>
+
     </body>
 
-</body>
