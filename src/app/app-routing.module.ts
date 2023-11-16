@@ -2,10 +2,10 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router'; 
 import { HomeComponent } from './model/home/home.component'; 
 import { UserformComponent } from './model/userform/userform.component';
-import { AuthClassGuard } from './shared/auth-class.guard';
 import { HomepageComponent } from './user/homepage/homepage.component';
 import { LoginComponent } from './user/login/login.component';
 import { SignupComponent } from './user/signup/signup.component';
+import { authGuard } from './shared/auth.guard';
 
 
 
@@ -27,24 +27,24 @@ const routes: Routes = [
   {
     path:'home',
     component: HomeComponent,
-    canActivate: [AuthClassGuard]
+    canActivate: [authGuard]
   },
   
   {
     path:'userform/add',
-    component:UserformComponent,
-    canActivate: [AuthClassGuard]
+    component: UserformComponent,
+    canActivate:[authGuard]
   },
   {
     path:'userform/edit/:id',
     component: UserformComponent,
-    canActivate: [AuthClassGuard]
+    canActivate:[authGuard]
   }
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
-   providers: [AuthClassGuard] 
+   providers: [] 
 })
 export class AppRoutingModule { }

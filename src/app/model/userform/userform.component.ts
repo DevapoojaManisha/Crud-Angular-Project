@@ -4,6 +4,7 @@ import { UserService } from 'src/app/shared/user.service';
 import { User } from 'src/app/user';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { AuthService } from 'src/app/shared/auth.service';
 
 
 @Component({
@@ -14,7 +15,7 @@ import { ToastrService } from 'ngx-toastr';
 export class UserformComponent implements OnInit {
   userForm!: FormGroup;
   submitted = false;
-  isEdit = false; // A flag to determine if it's an edit mode
+  isEdit = false; 
   userId: string='';
 
   constructor(private userService: UserService,
@@ -22,6 +23,7 @@ export class UserformComponent implements OnInit {
               private router: Router,
               private formBuilder: FormBuilder,
               private _toast: ToastrService,
+              private authService:AuthService
               ) { }
 
               ngOnInit() {
@@ -95,6 +97,8 @@ export class UserformComponent implements OnInit {
               }
   
   
-  
+  logout() {
+    this.authService.logout();
+  }
 
 }

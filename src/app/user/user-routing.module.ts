@@ -2,10 +2,11 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from '../model/home/home.component'; 
 import { UserformComponent } from '../model/userform/userform.component'; 
-import { AuthClassGuard } from '../shared/auth-class.guard';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { HomepageComponent } from './homepage/homepage.component';
+import { authGuard } from '../shared/auth.guard';
+
 
 
 const routes: Routes = [
@@ -25,24 +26,24 @@ const routes: Routes = [
   {
     path:'home',
     component: HomeComponent,
-    canActivate: [AuthClassGuard]
+    canActivate: [authGuard]
   },
   
   {
     path:'userform/add',
     component: UserformComponent,
-    canActivate: [AuthClassGuard]
+    canActivate:[authGuard]
   },
   {
     path:'userform/edit/:id',
     component: UserformComponent,
-    canActivate: [AuthClassGuard]
+    canActivate:[authGuard]
   }
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
-   providers: [AuthClassGuard] 
+   providers: [] 
 })
 export class UserRoutingModule { }

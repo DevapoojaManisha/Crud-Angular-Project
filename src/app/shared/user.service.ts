@@ -3,6 +3,7 @@ import { User } from '../user';
 import { Observable ,from} from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 export class UserService {
 
 
-  constructor(private readonly angularFireStore: AngularFirestore) { }
+  constructor(private readonly angularFireStore: AngularFirestore,private authService: AuthService ) { }
 
   saveUser(user: User) {
     const userData = JSON.parse(JSON.stringify(user));
@@ -19,6 +20,10 @@ export class UserService {
     docRef.update(userData);
     })
   
+  }
+
+  isAuthenticated(): Promise<boolean> {
+    return this.authService.isAuthenticated(); 
   }
 
   getAllUser(): Observable<User[]> {
