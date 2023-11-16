@@ -18,7 +18,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   showClearIcon: boolean = false;
   clearIcon: boolean = false;
   p: number = 1;
-  itemsPerPage: number = 10;
+  itemsPerPage: number = 4;
+  
 
   private readonly user$ = this.userService.getAllUser();
   private readonly appUser$ = this.authService.appUser$;
@@ -112,11 +113,19 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   loadData() {
-    this.userData$ = combineLatest([this.userService.getAllUser(), this.appUser$]).pipe(
+    this.userData$ = combineLatest([this.user$, this.appUser$]).pipe(
       map(([user, appUser]) => ({
         userList: user,
         appUser,
       }))
     );
   }
+
+getPages(userListLength: number, itemsPerPage: number): number[] {
+  const pageCount = Math.ceil(userListLength / itemsPerPage);
+  return Array.from({ length: pageCount }, (_, index) => index + 1);
+}
+
+  
+  
 }
