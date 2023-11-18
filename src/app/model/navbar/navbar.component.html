@@ -1,0 +1,36 @@
+
+<nav class="navbar navbar-expand-lg navbar-dark "
+    style="width: 100%; padding: 15px; background:linear-gradient(to right, #3498db, #9f01ea);">
+    <div class="container">
+        <a class="navbar-brand" routerLink="/home"><i class="fa fa-home home mx-1"></i>Home</a>
+        <div class="d-flex col-md-6 offset-md-1 " *ngIf="showSearchAndAddSite">
+            <form (ngSubmit)="search()" #searchForm="ngForm">
+                <div class="input-group">
+                    <input type="text" class="form-control custom-input" placeholder="Search by Name" [(ngModel)]="searchQuery"
+                        name="searchQuery" />
+                    <span class="input-group-text">
+                        <i class="fa fa-times" *ngIf="showClearIcon" (click)="clearSearch()"></i>
+                    </span>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="color">
+        <div class="color" routerLink="/userform/add"  *ngIf="showSearchAndAddSite" >
+            <i class="fa fa-plus mx-2"  ></i>
+            <div class="space"  >AddSite</div>
+        </div>
+        <div class="color" (click)="logout()">
+            <i class="fa fa-power-off mx-2"></i>
+            <div class="space">Logout</div>
+        </div>
+        <div class="color">
+            <i class="fa fa-github mx-2"></i>
+            <a class="github-link" style="color: white;" href="https://github.com/DevapoojaManisha/Crud-Angular-Project.git" target="_blank">
+                GitHub
+            </a>
+        </div>
+
+    </div>
+</nav>
+

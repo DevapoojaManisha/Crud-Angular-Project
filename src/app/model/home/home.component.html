@@ -1,36 +1,5 @@
-<nav class="navbar navbar-expand-lg navbar-dark "
-  style="width: 100%; padding: 15px; background:linear-gradient(to right, #3498db, #9f01ea);">
-  <div class="container">
-    <a class="navbar-brand" routerLink="/home"><i class="fa fa-home home mx-1"></i>Home</a>
-    <div class="d-flex col-md-6 offset-md-1 ">
-      <form (ngSubmit)="search()" #searchForm="ngForm">
-        <div class="input-group">
-          <input type="text" class="form-control custom-input" placeholder="Search by Name" [(ngModel)]="searchQuery"
-            name="searchQuery" />
-          <span class="input-group-text">
-            <i class="fa fa-times" *ngIf="showClearIcon" (click)="clearSearch()"></i>
-          </span>
-        </div>
-      </form>
-    </div>
-  </div>
-  <div class="color">
-    <div class="color" routerLink="/userform/add">
-      <i class="fa fa-plus mx-2"></i>
-      <div class="space">AddSite</div>
-    </div>
-    <div class="color" (click)="logout()">
-      <i class="fa fa-power-off mx-2"></i>
-      <div class="space">Logout</div>
-    </div>
-    <div class="color">
-      <i class="fa fa-github mx-2"></i>
-      <div class="github-link" style="color: white; "
-        href="https://github.com/DevapoojaManisha/Crud-Angular-Project.git" target="_blank">GitHub</div>
-    </div>
-  </div>
-</nav>
-    <h1 class="align" >PassVault</h1>
+<app-navbar></app-navbar>
+   <h1 class="align" >PassVault</h1>
     <h3 style="text-align:center">Create one master password and let PassVault take care of the rest. Logins, credit cards, ID cards and other important
     information stored in one safe place..</h3>
   

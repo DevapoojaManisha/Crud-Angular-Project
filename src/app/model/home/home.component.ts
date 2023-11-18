@@ -6,6 +6,7 @@ import { AuthService } from 'src/app/shared/auth.service';
 import { combineLatest, of, Subscription } from "rxjs";
 import { map } from "rxjs/operators";
 import { Location } from '@angular/common';
+import { SearchService } from 'src/app/shared/search.service';
 
 @Component({
   selector: 'app-home',
@@ -36,56 +37,47 @@ export class HomeComponent implements OnInit, OnDestroy {
     private _toast: ToastrService,
     private router: Router,
     private location: Location,
-    private authService: AuthService
+    private authService: AuthService,
+     private searchService: SearchService
   ) {}
 
   ngOnInit(): void {
     this.loadData();
     this.disableNavigation();
+
+    this.searchService.getSearchQuery().subscribe((query) => {
+      this.searchQuery = query;
+
+      if (this.searchQuery.trim() !== '') {
+        this.userService.getAllUser().subscribe((data) => {
+          const searchQuery = this.searchQuery.toLowerCase().trim();
+          const filteredUsers = data.filter((user) =>
+            user.name.toLowerCase().includes(searchQuery)
+          );
+
+          this.userData$ = combineLatest([of(filteredUsers), this.appUser$]).pipe(
+            map(([user, appUser]) => ({
+              userList: user,
+              appUser,
+            }))
+          );
+        });
+      } else {
+        // If search query is empty, load all data
+        this.loadData();
+      }
+
+      this.showClearIcon = true;
+    });
+    
   }
 
   ngOnDestroy(): void {
-    // Unsubscribe from router events to avoid memory leaks
     if (this.mySubscription) {
       this.mySubscription.unsubscribe();
     }
   }
 
-  logout() {
-    this.authService.logout();
-  }
-
-
-
-  search() {
-    if (this.searchQuery.trim() !== '') {
-      this.userService.getAllUser().subscribe((data) => {
-        const searchQuery = this.searchQuery.toLowerCase().trim();
-        const filteredUsers = data.filter((user) =>
-          user.name.toLowerCase().includes(searchQuery)
-        );
-
-        this.userData$ = combineLatest([of(filteredUsers), this.appUser$]).pipe(
-          map(([user, appUser]) => ({
-            userList: user,
-            appUser,
-          }))
-        );
-      });
-    }
-    this.showClearIcon = true;
-  }
-
-  clearSearch() {
-    this.searchQuery = '';
-    this.showClearIcon = false;
-    this.userData$ = combineLatest([this.userService.getAllUser(), this.appUser$]).pipe(
-      map(([user, appUser]) => ({
-        userList: user,
-        appUser,
-      }))
-    );
-  }
 
 
   delete(userId: string) {
@@ -113,13 +105,19 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   loadData() {
-    this.userData$ = combineLatest([this.user$, this.appUser$]).pipe(
+  this.userService.getAllUser().subscribe(users => {
+    // Sort users by name in ascending order
+    const sortedUsers = users.sort((a, b) => a.name.localeCompare(b.name));
+
+    this.userData$ = combineLatest([of(sortedUsers), this.appUser$]).pipe(
       map(([user, appUser]) => ({
         userList: user,
         appUser,
       }))
     );
-  }
+  });
+}
+
 
 getPages(userListLength: number, itemsPerPage: number): number[] {
   const pageCount = Math.ceil(userListLength / itemsPerPage);

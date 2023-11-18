@@ -57,16 +57,6 @@ export class UserformComponent implements OnInit {
                 });
               }
   
-  
-            
-
-
-
-
-
-
-  
-
               onSubmit() {
                 this.submitted = true;
                 const user: User = this.userForm.value;

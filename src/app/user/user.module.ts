@@ -10,6 +10,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { HomepageComponent } from './homepage/homepage.component';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
+import { NavbarComponent } from '../model/navbar/navbar.component';
 @NgModule({
   declarations: [
     HomeComponent,
@@ -17,6 +18,7 @@ import { SignupComponent } from './signup/signup.component';
     HomepageComponent,
     LoginComponent,
     SignupComponent,
+    NavbarComponent
   ],
   imports: [
     CommonModule,
