@@ -1,51 +1,6 @@
-.table-container {
-    margin-left: 30px;
-    margin-right: 30px;
 
-}
 
-.custom-bordered-table {
-    width: 100%;
-    border-collapse: collapse;
-    border: 2px solid #ece6e6;
 
-}
-
-.table {
-    border-collapse: separate;
-    border: solid #ece6e6 1px;
-    border-radius: 6px;
-}
-
-.custom-bordered-table th,
-.custom-bordered-table td {
-    border: 1px solid #ece6e6;
-}
-
-.custom-bordered-table tr:first-child th {
-    border-top: 2px solid #ece6e6;
-}
-
-.custom-bordered-table th {
-    background-color: #6870e4;
-    /* Set the background color for the table header */
-    color: #fff;
-    /* Set the text color for the table header */
-    border: 1px solid #555;
-    border-radius: 5px;
-    text-align: center;
-    /* Center the text within the header cells */
-}
-
-.custom-rounded-table {
-    border-radius: 10px;
-}
-
-::placeholder {
-    color: #999;
-    font-style: italic;
-    font-weight: bold;
-}
 
 .custom-input {
     width: 300px
@@ -93,6 +48,7 @@
 
 .navbar-brand {
     font-size: 22px;
+    margin-top: -20px;
 }
 
 .align {
@@ -100,4 +56,16 @@
     font-size: 40px;
     color: #333;
     text-align: center;
+}
+.search-form-field{
+    width: 350px;
+    height: 65px;
+    margin-top: 25px;
+   
+}
+.searchform{
+    background-color: white;
+}
+.btn{
+    margin-bottom: 20px;
 }

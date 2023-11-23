@@ -66,7 +66,6 @@ export class UserformComponent implements OnInit {
                 } else {
                   if (this.isEdit) {
                     this.userService.update(this.userId, user).then(() => {
-                      this.showSuccess('Site Data Successfully Updated', user.name);
                       this.router.navigate(['home']);
                     });
                   } else {
@@ -84,6 +83,7 @@ export class UserformComponent implements OnInit {
             
               cancelEdit() {
                 this.router.navigate(['home']);
+                
               }
   
   

@@ -63,7 +63,6 @@ export class HomeComponent implements OnInit, OnDestroy {
           );
         });
       } else {
-        // If search query is empty, load all data
         this.loadData();
       }
 
@@ -71,6 +70,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     });
     
   }
+
+  
 
   ngOnDestroy(): void {
     if (this.mySubscription) {
@@ -106,7 +107,6 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   loadData() {
   this.userService.getAllUser().subscribe(users => {
-    // Sort users by name in ascending order
     const sortedUsers = users.sort((a, b) => a.name.localeCompare(b.name));
 
     this.userData$ = combineLatest([of(sortedUsers), this.appUser$]).pipe(
@@ -123,7 +123,5 @@ getPages(userListLength: number, itemsPerPage: number): number[] {
   const pageCount = Math.ceil(userListLength / itemsPerPage);
   return Array.from({ length: pageCount }, (_, index) => index + 1);
 }
-
-  
   
 }

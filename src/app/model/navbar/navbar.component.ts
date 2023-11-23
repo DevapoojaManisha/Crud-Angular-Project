@@ -5,6 +5,8 @@ import { AuthService } from 'src/app/shared/auth.service';
 import { combineLatest, of } from "rxjs";
 import { map } from "rxjs/operators";
 import { SearchService } from 'src/app/shared/search.service';
+
+
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -62,7 +64,6 @@ export class NavbarComponent implements OnInit{
   clearSearch() {
     this.searchQuery = '';
     this.showClearIcon = false;
-
     this.searchService.setSearchQuery('');
     this.userData$ = combineLatest([this.userService.getAllUser(), this.appUser$]).pipe(
       map(([user, appUser]) => ({
@@ -71,4 +72,5 @@ export class NavbarComponent implements OnInit{
       }))
     );
   }
+  
 }
