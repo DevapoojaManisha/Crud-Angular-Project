@@ -16,10 +16,10 @@ import { SearchService } from 'src/app/shared/search.service';
 export class HomeComponent implements OnInit, OnDestroy {
   private mySubscription: Subscription | undefined;
   searchQuery: string = '';
-  showClearIcon: boolean = false;
-  clearIcon: boolean = false;
   p: number = 1;
   itemsPerPage: number = 4;
+  sortDirection: boolean = false; 
+  sortColumn: string = '';
   
 
   private readonly user$ = this.userService.getAllUser();
@@ -41,6 +41,7 @@ export class HomeComponent implements OnInit, OnDestroy {
      private searchService: SearchService
   ) {}
 
+  
   ngOnInit(): void {
     this.loadData();
     this.disableNavigation();
@@ -65,49 +66,29 @@ export class HomeComponent implements OnInit, OnDestroy {
       } else {
         this.loadData();
       }
-
-      this.showClearIcon = true;
     });
     
   }
 
-  
 
-  ngOnDestroy(): void {
-    if (this.mySubscription) {
-      this.mySubscription.unsubscribe();
+   sortData(column: string): void {
+    if (this.sortColumn === column) {
+      this.sortDirection = !this.sortDirection;
+    } else {
+      this.sortColumn = column;
+      this.sortDirection = false;
     }
-  }
 
-
-
-  delete(userId: string) {
-    if (confirm("Are you sure you want to delete this employee record?")) {
-      this.userService.deleteUser(userId).subscribe(() => {
-        this.showError();
-      }, (error) => {
-        console.error("Error deleting user:", error);
-      });
-    }
-  }
-
-  public showError(): void {
-    this._toast.error('Data Has Deleted');
-  }
-
-
-
-  private disableNavigation(): void {
-    this.mySubscription = this.router.events.subscribe((event) => {
-      if (event instanceof NavigationStart) {
-        this.location.forward();
-      }
-    });
+    this.loadData();
   }
 
   loadData() {
   this.userService.getAllUser().subscribe(users => {
-    const sortedUsers = users.sort((a, b) => a.name.localeCompare(b.name));
+    let sortedUsers = users.slice(); 
+
+    if (this.sortColumn) {
+      sortedUsers = this.sortDataArray(sortedUsers, this.sortColumn, this.sortDirection);
+    }
 
     this.userData$ = combineLatest([of(sortedUsers), this.appUser$]).pipe(
       map(([user, appUser]) => ({
@@ -119,9 +100,50 @@ export class HomeComponent implements OnInit, OnDestroy {
 }
 
 
+  private sortDataArray(dataArray: any[], columnName: string, sortDirection: boolean): any[] {
+    return dataArray.sort((a, b) => {
+      const valueA = a[columnName];
+      const valueB = b[columnName];
+
+      if (typeof valueA === 'string' && typeof valueB === 'string') {
+        return sortDirection ? valueA.localeCompare(valueB) : valueB.localeCompare(valueA);
+      } else {
+        return sortDirection ? valueA - valueB : valueB - valueA;
+      }
+    });
+  }
+
+  
+  delete(userId: string) {
+    if (confirm("Are you sure you want to delete this employee record?")) {
+      this.userService.deleteUser(userId).subscribe(() => {
+        this.showError();
+      }, (error) => {
+        console.error("Error deleting user:", error);
+      });
+    }
+  }
+
+  private disableNavigation(): void {
+    this.mySubscription = this.router.events.subscribe((event) => {
+      if (event instanceof NavigationStart) {
+        this.location.forward();
+      }
+    });
+  }
+
+  ngOnDestroy(): void {
+    if (this.mySubscription) {
+      this.mySubscription.unsubscribe();
+    }
+  }
+
 getPages(userListLength: number, itemsPerPage: number): number[] {
   const pageCount = Math.ceil(userListLength / itemsPerPage);
   return Array.from({ length: pageCount }, (_, index) => index + 1);
 }
   
+  public showError(): void {
+    this._toast.error('Data Has Deleted');
+  }
 }

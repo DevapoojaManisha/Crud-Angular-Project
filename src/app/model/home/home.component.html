@@ -1,70 +1,86 @@
 <app-navbar></app-navbar>
 
-   <h1 class="align" >PassVault</h1>
-    <h3 style="text-align:center">Create one master password and let PassVault take care of the rest. Logins, credit cards, ID cards and other important
-    information stored in one safe place..</h3>
-  
-  <ng-template #loading>
-    <p><em>Loading...</em></p>
-  </ng-template> 
-  
-  <ng-container *ngIf="userData$ | async as userData; else loading">
-    <ng-container *ngIf="userData.userList.length > 0; else noData">
-      <div class="table-container">
-        <table class="table  custom-bordered-table custom-rounded-table custom-smaller-table">
-          <thead class="bg-success text-white">
-            <tr class="text-center">
-              <th>Name</th>
-              <th>Phone</th>
-              <th>Email</th>
-              <th>Website</th>
-              <th>Password</th>
-              <th *ngIf="userData.appUser">Actions</th>
-            </tr>
-          </thead>
-          <tbody class="text-center">
-            <tr *ngFor="let user of userData.userList | slice: (p - 1) * itemsPerPage : p * itemsPerPage">
-              <td>{{ user.name }}</td>
-              <td>{{ user.phone }}</td>
-              <td>{{ user.email }}</td>
-              <td>
-                <a *ngIf="user.website" [href]="'http://' + user.website" target="_blank">{{ user.website }}</a>
-              </td>
-              <td>{{ user.password}}</td>
-              <td *ngIf="userData.appUser">
+<h1 class="align">PassVault</h1>
+<h3 style="text-align:center">Create one master password and let PassVault take care of the rest. Logins, credit cards,
+  ID cards and other important
+  information stored in one safe place..</h3>
+
+<ng-template #loading>
+  <p><em>Loading...</em></p>
+</ng-template>
+
+<ng-container *ngIf="userData$ | async as userData; else loading">
+  <ng-container *ngIf="userData.userList.length > 0; else noData">
+    <div class="table-container">
+      <table class="table  custom-bordered-table custom-rounded-table custom-smaller-table">
+        <thead class="bg-success text-white">
+          <tr class="text-center">
+            <th>
+              <div>
+                <span class="header-content">Name&nbsp;</span>
+                <i class="fa fa-sort" (click)="sortData('name')"></i>
+                <span *ngIf="sortColumn === 'name'"></span>
+              </div>
+            </th>
+            <th>
+              <div>
+                <span class="header-content">Phone&nbsp;</span>
+                <i class="fa fa-sort" (click)="sortData('phone')"></i>
+                <span *ngIf="sortColumn === 'phone'"></span>
+              </div>
+            </th>
+            <th>
+              <div>
+                <span class="header-content">Email&nbsp;</span>
+                <i class="fa fa-sort" (click)="sortData('email')"></i>
+                <span *ngIf="sortColumn === 'email'"></span>
+              </div>
+            </th>
+            <th>Website</th>
+            <th>Password</th>
+            <th *ngIf="userData.appUser">Actions</th>
+          </tr>
+        </thead>
+        <tbody class="text-center">
+          <tr *ngFor="let user of userData.userList | slice: (p - 1) * itemsPerPage : p * itemsPerPage">
+            <td>{{ user.name }}</td>
+            <td>{{ user.phone }}</td>
+            <td>{{ user.email }}</td>
+            <td>
+              <a *ngIf="user.website" [href]="'http://' + user.website" target="_blank">{{ user.website }}</a>
+            </td>
+            <td>{{ user.password}}</td>
+            <td *ngIf="userData.appUser">
               <button class="btn btn-outline-dark mx-2" [routerLink]="'/userform/edit/' + user.id">
                 <i class="fa fa-pencil"></i>
               </button>
               <button type="button" class="btn btn-danger" (click)="delete(user.id)">
                 <i class="fa fa-trash"></i>
               </button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="d-flex justify-content-center">
-        <ul class="pagination">
-          <li class="page-item" *ngIf="p > 1">
-            <a class="page-link" (click)="p = p - 1">&laquo; Previous</a>
-          </li>
-      
-          <li class="page-item" *ngFor="let page of getPages(userData.userList.length, itemsPerPage)">
-            <a class="page-link" (click)="p = page">{{ page }}</a>
-          </li>
-      
-          <li class="page-item" *ngIf="p < getPages(userData.userList.length, itemsPerPage).length">
-            <a class="page-link" (click)="p = p + 1">Next &raquo;</a>
-          </li>
-        </ul>
-      </div>
-    </ng-container>
-    <ng-template #noData>
-      <div class="d-flex justify-content-center">
-        <h4>No records found</h4>
-      </div>
-    </ng-template>
-  </ng-container>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="d-flex justify-content-center">
+      <ul class="pagination">
+        <li class="page-item" *ngIf="p > 1">
+          <a class="page-link" (click)="p = p - 1">&laquo; Previous</a>
+        </li>
 
- 
-  
+        <li class="page-item" *ngFor="let page of getPages(userData.userList.length, itemsPerPage)">
+          <a class="page-link" (click)="p = page">{{ page }}</a>
+        </li>
+
+        <li class="page-item" *ngIf="p < getPages(userData.userList.length, itemsPerPage).length">
+          <a class="page-link" (click)="p = p + 1">Next &raquo;</a>
+        </li>
+      </ul>
+    </div>
+  </ng-container>
+  <ng-template #noData>
+    <div class="d-flex justify-content-center">
+      <h4>No records found</h4>
+    </div>
+  </ng-template>
+</ng-container>

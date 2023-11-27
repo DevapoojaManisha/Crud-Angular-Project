@@ -81,11 +81,19 @@ export class UserformComponent implements OnInit {
                 this._toast.success(message, username);
               }
             
-              cancelEdit() {
-                this.router.navigate(['home']);
-                
-              }
   
+  showInfo(message: string, details: string): void {
+    this._toast.info(message, details);
+  }
+  cancelEdit() {
+  if (this.isEdit) {
+    this.showInfo('Edit Canceled', 'No changes were made.');
+  } else {
+    this.showInfo('Add Canceled', 'No changes were made.');
+    this.router.navigate(['home']);
+  }
+}
+
   
   logout() {
     this.authService.logout();

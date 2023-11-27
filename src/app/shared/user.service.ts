@@ -42,6 +42,25 @@ export class UserService {
     return userList;
   }
 
+    getAllUsersWithSorting(sortBy: string, sortDirection: boolean): Observable<User[]> {
+    const sortOrder = sortDirection ? 'desc' : 'asc';
+
+    const userList = this.angularFireStore
+      .collection<User>('user', (ref) => ref.orderBy(sortBy, sortOrder))
+      .snapshotChanges()
+      .pipe(
+        map((actions) => {
+          return actions.map((c) => {
+            const data = c.payload.doc.data();
+            const userId = c.payload.doc.id;
+            return { userId, ...data };
+          });
+        })
+      );
+    return userList;
+  }
+
+
   getUserId(userId: string): Observable<User | null> {
     return this.angularFireStore.collection("user").doc(userId).valueChanges() as Observable<User | null>;
   }

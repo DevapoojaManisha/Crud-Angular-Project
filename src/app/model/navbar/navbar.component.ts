@@ -15,8 +15,6 @@ import { SearchService } from 'src/app/shared/search.service';
 export class NavbarComponent implements OnInit{
    @Input() showSearchAndAddSite: boolean = true;
   searchQuery: string = '';
-  showClearIcon: boolean = false;
-  clearIcon: boolean = false;
   private readonly user$ = this.userService.getAllUser();
   private readonly appUser$ = this.authService.appUser$;
 
@@ -53,7 +51,6 @@ export class NavbarComponent implements OnInit{
         );
       });
     }
-    this.showClearIcon = true;
     this.searchService.setSearchQuery(this.searchQuery);
   }
 
@@ -63,7 +60,6 @@ export class NavbarComponent implements OnInit{
 
   clearSearch() {
     this.searchQuery = '';
-    this.showClearIcon = false;
     this.searchService.setSearchQuery('');
     this.userData$ = combineLatest([this.userService.getAllUser(), this.appUser$]).pipe(
       map(([user, appUser]) => ({

@@ -11,11 +11,7 @@ import { HomepageComponent } from './homepage/homepage.component';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { NavbarComponent } from '../model/navbar/navbar.component';
-import { MatInputModule ,} from '@angular/material/input';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
-import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import {MatFormFieldModule} from '@angular/material/form-field';
+
 
 
 
@@ -26,18 +22,13 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     HomepageComponent,
     LoginComponent,
     SignupComponent,
-    NavbarComponent
+    NavbarComponent,
   ],
   imports: [
     CommonModule,
     UserRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    MatInputModule,
-    MatIconModule,
-    MatButtonModule,
-    MatFormFieldModule,
-    MatAutocompleteModule,
     ToastrModule.forRoot({
       closeButton:true,
       timeOut:5000,
